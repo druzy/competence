@@ -1,24 +1,25 @@
 # Competence
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/competence`. To experiment with that code, run `bin/console` for an interactive prompt.
-
-TODO: Delete this and the text above, and describe your gem
+Competence est un logiciel de traitemet du fichier csv des compétences obtenu sur l'ent Arsène76.
 
 ## Installation
 
-Add this line to your application's Gemfile:
+Ajouter cette ligne au fichier gemfile de votre application
 
 ```ruby
 gem 'competence'
 ```
 
-And then execute:
+Puis executer :
 
     $ bundle
 
-Or install it yourself as:
+Ou, installez le vous-même en executant
 
     $ gem install competence
+    
+Ou sous ubuntu : 
+TODO
 
 ## Usage
 
