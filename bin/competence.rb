@@ -1,7 +1,11 @@
-require 'tk'
+#!/usr/bin/env jruby
+# -*- ruby -*-
 
-back_file = Tk.getOpenFile(:filetypes =>["CSV {.csv}"])
-if back_file != '' && back_file !=nil
-	
-end
+require_relative '../lib/competence'
+require_relative '../lib/competence_view'
+
+
+comp = Competence::Competence.new
+comp.add_view(Competence::CompetenceView.new(comp))
+comp.display_views
 
