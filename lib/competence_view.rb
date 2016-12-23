@@ -27,7 +27,6 @@ module Competence
     
     def initialize(controller)
       super(controller)
-      
       SwingUtilities.invoke_and_wait do
         
 	UIManager.set_look_and_feel(UIManager.get_system_look_and_feel_class_name)
@@ -38,17 +37,27 @@ module Competence
 	@main_frame.set_title('Compétence')
 	@main_frame.set_layout(@grid)
 	@main_frame.add_window_listener(Class.new(WindowAdapter) do
+	  
+	  def initialize(controller)
+	    super()
+	    @controller = controller
+	  end
+	  
 	  def windowClosing(event)
 	    Thread.new do
 	      @controller.notify_action(self,:cross_clicked)
 	    end
 	  end
-	end.new)
+	end.new(@controller))
        
 	@field = JTextField.new(30)
 
 	@browse_button = JButton.new('parcourir')
 	@browse_button.add_action_listener(Class.new do
+	  def initialize(controller)
+	    @controller = controller
+          end
+	  
 	  def actionPerformed(event)
             Thread.new do
 	      @controller.notify_action(self,:browse_button_clicked)
@@ -58,7 +67,11 @@ module Competence
 
 	@exit_button = JButton.new('fermer')
 	@exit_button.add_action_listener(Class.new do
-	  def actionPerformed(event)
+	   def initialize(controller)
+	    @controller = controller
+          end
+
+          def actionPerformed(event)
 	    Thread.new do
 	      @controller.notify_action(self,:exit_button_clicked)
 	    end
@@ -67,6 +80,10 @@ module Competence
 
 	@about_button = JButton.new('à propos')
 	@about_button.add_action_listener(Class.new do
+	  def initialize(controller)
+	    @controller = controller
+          end
+
 	  def actionPerformed(event)
 	    Thread.new do
 	      @controller.notfy_action(self,:about_button_clicked)
@@ -113,7 +130,6 @@ module Competence
 	@main_frame.pack
  
       end
-      
     end
 
     def display
@@ -124,7 +140,7 @@ module Competence
 
     def close
       SwingUtilities.invoke_later do
-        @main_frame.dispose
+	@main_frame.dispose
       end
     end
   end
