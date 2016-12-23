@@ -4,9 +4,19 @@ require 'druzy/mvc'
 require 'java'
 
 module Competence
+
   class CompetenceView < Druzy::MVC::View
     
+    java_import java.awt.event.ActionListener
+    java_import java.awt.event.WindowAdapter
     java_import java.awt.GridBagConstraints
+    java_import java.awt.GridBagLayout
+    java_import javax.swing.JButton
+    java_import javax.swing.JFrame
+    java_import javax.swing.JTextField
+    java_import javax.swing.SwingUtilities
+    java_import javax.swing.UIManager
+    
     CENTER = GridBagConstraints.const_get(:CENTER)
     LAST_LINE_END = GridBagConstraints.const_get(:LAST_LINE_END)
     HORIZONTAL = GridBagConstraints.const_get(:HORIZONTAL)
@@ -14,32 +24,55 @@ module Competence
     REMAINDER = GridBagConstraints.const_get(:REMAINDER)
     
     INSETS = java.awt.Insets.new(5,5,5,5)
+    
     def initialize(controller)
       super(controller)
       
-
-      javax.swing.SwingUtilities.invoke_and_wait do
+      SwingUtilities.invoke_and_wait do
         
-	javax.swing.UIManager.set_look_and_feel(javax.swing.UIManager.get_system_look_and_feel_class_name)
+	UIManager.set_look_and_feel(UIManager.get_system_look_and_feel_class_name)
 
-	@grid = java.awt.GridBagLayout.new
+	@grid = GridBagLayout.new
 
-	@main_frame = javax.swing.JFrame.new
+	@main_frame = JFrame.new
 	@main_frame.set_title('Compétence')
 	@main_frame.set_layout(@grid)
-	@main_frame.add_window_listener(Class.new(java.awt.event.WindowAdapter){
-	  def windowClosed(event)
-	    puts event
+	@main_frame.add_window_listener(Class.new(WindowAdapter) do
+	  def windowClosing(event)
+	    Thread.new do
+	      @controller.notify_action(self,:cross_clicked)
+	    end
 	  end
-	})
+	end.new)
        
-	@field = javax.swing.JTextField.new(30)
+	@field = JTextField.new(30)
 
-	@browse_button = javax.swing.JButton.new('parcourir')
+	@browse_button = JButton.new('parcourir')
+	@browse_button.add_action_listener(Class.new do
+	  def actionPerformed(event)
+            Thread.new do
+	      @controller.notify_action(self,:browse_button_clicked)
+	    end
+	  end
+	end.new)
 
-	@exit_button = javax.swing.JButton.new('fermer')
+	@exit_button = JButton.new('fermer')
+	@exit_button.add_action_listener(Class.new do
+	  def actionPerformed(event)
+	    Thread.new do
+	      @controller.notify_action(self,:exit_button_clicked)
+	    end
+	  end
+	end.new)
 
-	@about_button = javax.swing.JButton.new('à propos')
+	@about_button = JButton.new('à propos')
+	@about_button.add_action_listener(Class.new do
+	  def actionPerformed(event)
+	    Thread.new do
+	      @controller.notfy_action(self,:about_button_clicked)
+	    end
+	  end
+	end.new)
 	
 	c = GridBagConstraints.new
         c.gridx = 0
@@ -84,9 +117,16 @@ module Competence
     end
 
     def display
-      javax.swing.SwingUtilities.invoke_later do
+      SwingUtilities.invoke_later do
         @main_frame.set_visible(true)
       end
     end
+
+    def close
+      SwingUtilities.invoke_later do
+        @main_frame.dispose
+      end
+    end
   end
+  
 end

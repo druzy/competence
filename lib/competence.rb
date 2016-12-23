@@ -12,5 +12,11 @@ module Competence
 	super(kwargs[:model])
       end
     end
+
+    def notify_action(view,action,kwargs={})
+      if action == :cross_clicked
+        close_views
+      end
+    end
   end
 end
