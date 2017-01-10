@@ -4,6 +4,7 @@
 require_relative '../lib/competence'
 require_relative '../lib/competence_view'
 
+require 'java'
 
 comp = Competence::Competence.new
 comp.add_view(Competence::CompetenceView.new(comp))

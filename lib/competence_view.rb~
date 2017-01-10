@@ -1,0 +1,45 @@
+# encoding: utf-8
+
+require 'druzy/mvc'
+require 'java'
+require 'jrubyfx'
+fxml_root File.dirname(__FILE__)
+
+module Competence
+  
+  class CompetenceApp < JRubyFX::Application
+
+    def start(stage)
+      stage.title = "test"
+      stage.fxml('competence_view.fxml')
+      stage.show
+      #with(stage, :title => "Hello World!", :width => 800, :height => 600) do
+      #  fxml "competence_view.fxml"
+#	show
+ #     end
+     
+    end
+
+  end
+
+  class CompetenceView < Druzy::MVC::View
+    
+    def initialize(controller)
+      CompetenceApp.launch
+    end
+
+    def display
+ 
+    end
+
+    def close
+    end
+
+    def property_change(event)
+      if event.property_name == 'file'
+      end
+    end
+
+  end
+  
+end
