@@ -10,25 +10,26 @@ JRuby.objectspace = true
 module Competence
 
   class AboutApp < JRubyFX::Application
-    
+
     attr_accessor :view, :main_thread
 
     def start(stage)
       stage.title = 'À propos de Compétence'
+      puts 'file:'+@view.controller.model.icon
       stage.icons.add(Image.new('file:'+@view.controller.model.icon))
       stage.resizable = false
 
       controller  = stage.fxml(AboutAppController)
       controller.view = @view
       @view.controller_app = controller
-      
+
       stage.show
     end
 
   end
 
   class AboutAppController
-    
+
     attr_accessor :view, :stage, :field
 
     include JRubyFX::Controller
@@ -41,9 +42,9 @@ module Competence
     end
 
   end
-  
+
   class AboutView < Druzy::MVC::View
-    
+
     attr_accessor :controller_app
 
     java_import javafx.application.Platform
@@ -54,12 +55,12 @@ module Competence
 
       Platform.run_later do
         @stage = javafx.stage.Stage.new
-        
-	app = AboutApp.new
-	app.view = self
-	app.main_thread = Thread.current
-	
-	app.start(@stage)
+
+	      app = AboutApp.new
+        app.view = self
+        app.main_thread = Thread.current
+
+	      app.start(@stage)
       end
 
     end
@@ -78,4 +79,3 @@ module Competence
 
   end
 end
-
