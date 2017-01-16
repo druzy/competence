@@ -15,7 +15,9 @@ module Competence
 
     def start(stage)
       stage.title = 'À propos de Compétence'
-      puts 'file:'+@view.controller.model.icon
+
+
+
       stage.icons.add(Image.new('file:'+@view.controller.model.icon))
       stage.resizable = false
 
