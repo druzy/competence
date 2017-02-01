@@ -6,20 +6,18 @@ require_relative 'competence/version'
 require_relative 'competence_model'
 
 require 'druzy/mvc'
-require 'java'
-require 'jrubyfx'
+require 'rjb'
 
 module Competence
   class Competence < Druzy::MVC::Controller
-     
-    java_import javafx.application.Platform
-    java_import javafx.stage.FileChooser
+
+    FileChooser = Rjb::import('javafx.stage.FileChooser')
 
     def initialize(kwargs={})
       if kwargs[:model]==nil
-	initialize(:model => CompetenceModel.new)
+	       initialize(:model => CompetenceModel.new)
       else
-	super(kwargs[:model])
+	       super(kwargs[:model])
       end
     end
 
@@ -27,22 +25,22 @@ module Competence
       if action == :cross_clicked
         view.close
       elsif action == :browse_button_clicked
-        Platform.run_later do
-          dialog = FileChooser.new
-	  res = dialog.show_open_dialog(nil)
-	  if res != nil
-	    file = res.to_s
-	    @model.file = file
-	  end
-	end
-      elsif action == :analyze_button_clicked
+
+        dialog = FileChooser.new
+        res = dialog.show_open_dialog(nil)
+    	  if res != nil
+    	    file = res.to_s
+    	    @model.file = file
+    	  end
+	    elsif action == :analyze_button_clicked
         analyze = Analyse.new
-	analyze.add_view(AnalyzeView.new(analyze))
-	analyze.display_views
+      	analyze.add_view(AnalyzeView.new(analyze))
+      	analyze.display_views
       elsif action == :about_button_clicked
-	about = About.new
-	about.add_view(AboutView.new(about))
-	about.display_views
+      	about = About.new
+      	about.add_view(AboutView.new(about))
+        puts 'prout'
+      	about.display_views
       elsif action == :exit_button_clicked
         notify_action(view,:cross_clicked)
       end

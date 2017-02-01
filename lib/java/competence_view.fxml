@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="135.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.65" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="135.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="CompetenceViewController">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
          <children>
@@ -17,26 +17,26 @@
             </AnchorPane>
             <AnchorPane HBox.hgrow="NEVER">
                <children>
-                  <Button fx:id="browse_button" layoutX="309.0" layoutY="145.0" mnemonicParsing="false" onAction="#browse_button_clicked" text="Parcourir" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                  <Button fx:id="browseButton" layoutX="309.0" layoutY="145.0" mnemonicParsing="false" onAction="#browseButtonClicked" text="Parcourir" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
                </children>
             </AnchorPane>
          </children>
       </HBox>
       <AnchorPane prefHeight="45.0" prefWidth="600.0" VBox.vgrow="NEVER">
          <children>
-            <Button fx:id="analyze_button" layoutX="524.0" layoutY="11.0" mnemonicParsing="false" onAction="#analyze_button_clicked" text="Analyser" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+            <Button fx:id="analyzeButton" layoutX="524.0" layoutY="11.0" mnemonicParsing="false" onAction="#analyzeButtonClicked" text="Analyser" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
          </children>
       </AnchorPane>
       <HBox prefHeight="54.0" prefWidth="600.0" VBox.vgrow="NEVER">
          <children>
             <AnchorPane prefHeight="57.0" prefWidth="538.0" HBox.hgrow="ALWAYS">
                <children>
-                  <Button fx:id="about_button" layoutX="448.0" layoutY="14.0" mnemonicParsing="false" onAction="#about_button_clicked" text="À propos" AnchorPane.rightAnchor="14.0" />
+                  <Button fx:id="aboutButton" layoutX="448.0" layoutY="14.0" mnemonicParsing="false" onAction="#aboutButtonClicked" text="À propos" AnchorPane.rightAnchor="14.0" />
                </children>
             </AnchorPane>
             <AnchorPane HBox.hgrow="NEVER">
                <children>
-                  <Button fx:id="exit_button" layoutX="-1.0" layoutY="34.0" mnemonicParsing="false" onAction="#exit_button_clicked" text="Fermer" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
+                  <Button fx:id="exitButton" layoutX="-1.0" layoutY="34.0" mnemonicParsing="false" onAction="#exitButtonClicked" text="Fermer" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="14.0" AnchorPane.topAnchor="14.0" />
                </children>
             </AnchorPane>
          </children>

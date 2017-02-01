@@ -1,0 +1,112 @@
+# encoding: utf-8
+
+require 'druzy/mvc'
+require 'java'
+
+module Competence
+
+  class CompetenceView < Druzy::MVC::View
+
+    java_import java.awt.event.WindowAdapter
+    java_import java.net.URL
+    java_import javafx.application.Platform
+    java_import javafx.embed.swing.JFXPanel
+    java_import javafx.fxml.FXMLLoader
+    java_import javafx.scene.Scene
+    java_import javax.swing.JFrame
+    java_import javax.swing.SwingUtilities
+
+    def initialize(controller)
+      super(controller)
+
+      @url_fxml = 'file:'+File.dirname(__FILE__)+'/competence_view.fxml'
+
+      SwingUtilities.invoke_and_wait do
+
+        @frame = JFrame.new('Compétence')
+        @frame.set_size(400, 150)
+        @frame.add_window_listener(Class.new(WindowAdapter) do
+          def initialize(view)
+            super()
+            @view = view
+          end
+
+          def windowClosing(event)
+            Thread.new do
+              @view.controller.notify_action(@view,:cross_clicked)
+            end
+          end
+        end.new(self))
+
+        @panel = JFXPanel.new
+
+        current = Thread.current
+        Platform.run_later do
+          root = FXMLLoader.load(URL.new(@url_fxml))
+
+          scene = Scene.new(root)
+
+          @field = scene.lookup('#field')
+
+          @browse_button = scene.lookup('#browse_button')
+          @browse_button.set_on_action do
+            Thread.new do
+              @controller.notify_action(self,:browse_button_clicked)
+            end
+          end
+
+          @analyze_button = scene.lookup('#analyze_button')
+          @analyze_button.set_on_action do
+            Thread.new do
+              @controller.notify_action(self,:analyze_button_clicked)
+            end
+          end
+
+          @about_button = scene.lookup('#about_button')
+          @about_button.set_on_action do
+            Thread.new do
+              @controller.notify_action(self,:about_button_clicked)
+            end
+          end
+
+          @exit_button = scene.lookup('#exit_button')
+          @exit_button.set_on_action do
+            Thread.new do
+              @controller.notify_action(self,:exit_button_clicked)
+            end
+          end
+
+          @panel.scene = scene
+          current.wakeup
+        end
+        sleep
+
+        @frame.add(@panel)
+
+      end
+
+    end
+
+    def display
+      SwingUtilities.invoke_later do
+        @frame.visible = true
+      end
+    end
+
+    def close
+     SwingUtilities.invoke_later do
+       @frame.dispose
+     end
+    end
+
+    def property_change(event)
+      if event.property_name == 'file'
+        Platform.run_later do
+          @field.text = event.new_value
+	       end
+      end
+    end
+
+  end
+
+end

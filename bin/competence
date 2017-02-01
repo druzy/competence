@@ -1,12 +1,13 @@
-#!/usr/bin/env jruby
+#!/usr/bin/env ruby
 # -*- ruby -*-
 
 require_relative '../lib/competence'
 require_relative '../lib/competence_view'
 
-require 'java'
-
 comp = Competence::Competence.new
 comp.add_view(Competence::CompetenceView.new(comp))
 comp.display_views
 
+Thread.list.each do |t|
+  t.join if t != Thread.current
+end

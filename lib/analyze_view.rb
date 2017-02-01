@@ -1,19 +1,9 @@
 require 'druzy/mvc'
-require 'java'
-require 'jrubyfx'
+require 'rjb'
 
-fxml_root File.dirname(__FILE__)
+Rjb::load
 
 module Competence
-
-  class AnalyzeApp < JRubyFX::Application
-  end
-
-  class AnalyzeAppController
-    include JRubyFX::Controller
-    fxml('about_view.fxml')
-
-  end
 
   class AnalyzeView < Druzy::MVC::View
 
