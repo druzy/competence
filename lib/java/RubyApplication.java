@@ -37,7 +37,7 @@ public abstract class RubyApplication extends Application{
     this.stage = stage;
     this.stage.setTitle(title);
     try{
-      VBox root = (VBox)FXMLLoader.load(getClass().getResource("competence_view.fxml"));
+      Parent root = (Parent)FXMLLoader.load(getClass().getResource("competence_view.fxml"));
       Scene scene = new Scene(root);
       this.stage.setScene(scene);
 
